@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from './screens/WelcomeScreen';
 import BeergardenMap from './screens/BeergardenMap';
 import BeergardenDetails from './screens/BeergardenDetails';
+import Favourites from './screens/Favourites';
+
 
 
 
@@ -14,6 +16,7 @@ export default function App() {
         <Stack.Screen name='Home' component={WelcomeScreen}  options={{ title: 'Home' }}/>
         <Stack.Screen name='BeergardenMap' component={BeergardenMap}  options={{ title: 'Beergarden Map' }}/>
         <Stack.Screen name='BeergardenDetails' component={BeergardenDetails}  options={{ title: 'Beergarden Details'}} />
+        <Stack.Screen name='Favourites' component={Favourites}  options={{ title: 'Favourites'}} />
        </Stack.Navigator>
     </NavigationContainer>
   );

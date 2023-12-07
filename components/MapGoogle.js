@@ -26,7 +26,7 @@ function MapGoogle({navigation}) {
               latitude: 48.137154,
               longitude : 11.576124
             }}
-            onPress={() => navigation.navigate('BeergardenDetails' ,  {title : "Marker Title " , id: "Marker ID", distance: "Marker Distance"})}
+            onPress={() => navigation.navigate('BeergardenDetails' ,  {title : "Marker Title " , id: "Marker ID", distance: "Marker Distance" })}
           >
             <Image source={icon}></Image>
           </Marker>

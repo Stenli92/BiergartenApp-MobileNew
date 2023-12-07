@@ -25,27 +25,26 @@ function CloseGardens({navigation}) {
                 <View style={styles.showMapButtonContainer}>
                     <Pressable  style={styles.showMapButton} onPress={() => setShowClosest(false)}><Text >Show Beergarden Map</Text></Pressable>
                 </View>
-                <ScrollView showsVerticalScrollIndicator style={styles.gardensContainer}>
+                <ScrollView style={styles.gardensContainer}>
 
                 {closeGardens
                     .sort((a, b) => a.distance - b.distance)
                     .map((data) => (
-                    <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BiergardenDetails' , {title : data.title , id: data.id , distance: data.distance})}>
+                    <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {title : data.title , id: data.id , distance: data.distance})}>
                         <ImageBackground style={styles.gardenContainer} source={require('../assets/close-bgarden-back.png')}>
 
                             <Text className="name" style={styles.distanceAndName} >{data.title}</Text>
-                            <View className="distance"  >
-                            <Image
-                                // style={styles.icon}
-                                source={require("../assets/small-location.png")}
-                                alt=""
-                            />
-                            <Text style={styles.distanceAndName}>
-
-                            {data.distance > 1000
-                                ? `${(data.distance / 1000).toFixed(0)} km`
-                                : `${data.distance.toFixed()} m`}
-                            </Text>
+                            <View >
+                                <Text style={styles.distanceAndName}>
+                                    <Image
+                                        // style={styles.icon}
+                                        source={require("../assets/small-location.png")}
+                                        alt=""
+                                    />  
+                                        {data.distance > 1000
+                                            ? `  ${(data.distance / 1000).toFixed(0)} km`
+                                            : `  ${data.distance.toFixed()} m`}
+                                </Text>
                             </View>
                         </ImageBackground>
                     </TouchableOpacity>
@@ -91,31 +90,28 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        padding: '1rem' 
+        padding: 10 ,
     },
     gardensContainer: {
-        marginTop:  '1rem',
+        marginTop:  10,
+        gap: 10,
         display: 'flex',
         flexDirection: "column",
         height: '100%',
-        // gap:1 
     },
     gardenContainer: {
         display: 'flex',
         flexDirection: "row",
         justifyContent: 'spaceBetween',
         alignItems:'flexEnd',
-        padding: '.5rem',
         height: '100%',
-        gap: 1,
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        color: 'white'
-
+        color: 'white',
     },
     garden: {
-        height:'20%',
-        gap: 1
+        borderTopEndRadius: 30,
+        height: 150,
     },
     icon : {
         display: 'flex',
@@ -158,9 +154,9 @@ const styles = StyleSheet.create({
         height: '40px',
         display: 'flex',
         gap: 0.4,
-        textOverflow: 'ellipsis',
         overflow: 'hidden', 
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        margin : 20
     }
     
   });
