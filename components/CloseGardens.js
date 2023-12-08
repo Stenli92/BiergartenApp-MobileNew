@@ -1,24 +1,7 @@
 import React ,{useState}from 'react';
 import { Pressable, Text , StyleSheet , ImageBackground  ,View , Image, ScrollView, TouchableOpacity} from 'react-native';
 
-function CloseGardens({navigation}) {
-
-  const [currentPoint, setCurrentPoint] = useState(0);
-  const [showClosest , setShowClosest] = useState(true);
-
-
-    function showIndex(direction) {
-        switch (direction) {
-          case 'down':
-            setCurrentPoint(currentPoint + 5);
-            break;
-          case 'up':
-            setCurrentPoint(currentPoint - 5);
-            break;
-          default:
-            break;
-        }
-      }
+function CloseGardens({navigation , showClosest , setShowClosest}) {
 
     return (
         <View className="close-gardens" style={showClosest ? styles.container : {display : 'none'}}>
@@ -27,7 +10,7 @@ function CloseGardens({navigation}) {
                 </View>
                 <ScrollView style={styles.gardensContainer}>
 
-                {closeGardens
+                    {closeGardens
                     .sort((a, b) => a.distance - b.distance)
                     .map((data) => (
                     <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {data : data})}>
@@ -37,7 +20,6 @@ function CloseGardens({navigation}) {
                             <View >
                                 <Text style={styles.distanceAndName}>
                                     <Image
-                                        // style={styles.icon}
                                         source={require("../assets/small-location.png")}
                                         alt=""
                                     />  
@@ -50,31 +32,7 @@ function CloseGardens({navigation}) {
                     </TouchableOpacity>
                     ))}
                 </ScrollView>
-                {currentPoint > 0 && (
-                    <Pressable
-                    type="button"
-                    style={[styles.buttonArrow ,  {top: 0}]}
-                    onPress={() => showIndex('up')}
-                    >
-                    <Text>
-
-                    &#x2191;
-                    </Text>
-                    </Pressable>
-                )}
-                {currentPoint + 5 <= closeGardens.length && (
-                    <Pressable
-                    type="button"
-                    style={[styles.buttonArrow ]}
-                    onPress={() => showIndex('down')}
-                    >
-                    <Text>
-
-                    &#x2193;
-                    </Text>
-                    </Pressable>
-                )}
-                </View>
+            </View>
       );
 }
 
@@ -90,13 +48,12 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        padding: 10 ,
+        padding: 10 
     },
     gardensContainer: {
-        marginTop:  10,
-        gap: 10,
         display: 'flex',
         flexDirection: "column",
+        gap: 10,
         height: '100%',
     },
     gardenContainer: {
@@ -108,6 +65,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         color: 'white',
+        borderTopEndRadius: 20,
+        borderBottomEndRad: 20
     },
     garden: {
         borderTopEndRadius: 30,
@@ -122,35 +81,23 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         width: '100%',
     },
-    buttonArrow: {
-        textAlign: 'center',
-        display: 'flex',
-        // position: 'absolute',
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        width: '3.5rem',
-        left: '50%',
-        transform: 'translateX:-50%',
-        color : 'white'
-    },
     showMapButtonContainer: {
         display:'block',
         alignSelf: 'center',
     },
     showMapButton : {
-        width: 'fit-content',
-        // shadowColor: 'none',
-        padding: 1,
+        padding: 10,
         borderTopLeftRadius: 8 ,
         borderTopRightRadius: 8 ,
         backgroundColor: '#8b8b8b',
         color: 'white',
         fontWeight: "bold",
-        letterSpacing: '2px'
+        letterSpacing: 2
     },
     distanceAndName : {
         color: '#FFF',
         shadowColor: '#000',
-        height: '40px',
+        height: 40,
         display: 'flex',
         gap: 0.4,
         overflow: 'hidden', 

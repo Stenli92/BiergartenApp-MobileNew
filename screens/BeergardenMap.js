@@ -11,16 +11,12 @@ function BeergardenMap({navigation}) {
 
     const {width , height} = useWindowDimensions();
     const mobileWidth = (width < 768);
-    console.log(showClosest)
 
-    useEffect(() => {
-
-    },[showClosest])
 
     return (
         <View style={styles.container} >
             <SearchBar></SearchBar>
-            <CloseGardens showClosest={showClosest} navigation={navigation}></CloseGardens>
+            <CloseGardens showClosest={showClosest} navigation={navigation} setShowClosest={setShowClosest}></CloseGardens>
             <MapGoogle navigation={navigation}></MapGoogle>
             <ShowClosesGardens setShowClosest={setShowClosest}/>
         </View>

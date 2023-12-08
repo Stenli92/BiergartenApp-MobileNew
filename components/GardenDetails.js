@@ -5,9 +5,6 @@ import { View , StyleSheet , Text , Pressable} from 'react-native';
 const GardenDetails = ({ styles , title , description}) => {
 
   const [isOpen , setIsOpen] = useState(false);
-
-  console.log(title)
-
   return (
     <View style={styles.detailsContainer}>
         <View>

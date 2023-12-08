@@ -23,7 +23,7 @@ function handleStyles(){
             justifyContent: 'center',
             position: 'absolute',
             alignSelf: 'center',
-            padding: 2,
+            padding: 10,
             backgroundColor:'#8b8b8b',
             borderTopLeftRadius: 8 ,
             borderTopRightRadius: 8 ,

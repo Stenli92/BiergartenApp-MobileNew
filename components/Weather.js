@@ -64,7 +64,6 @@ function handleStyles(){
 
         container: {
             padding: 30,
-            margin:10,
             gap: 20,
             width:'100%',
             display: 'flex',
@@ -97,8 +96,7 @@ function handleStyles(){
             justifyContent: 'space-evenly',
             alignItems:'center',
             gap: 20,
-            width: 'fit-content',
-            marginLeft: 45
+            width: 'fit-content'
         },
         city : {
             color: '#FFF',

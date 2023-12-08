@@ -6,6 +6,8 @@ import GardenDetails from '../components/GardenDetails';
 import Address from '../components/Address';
 import OpeningTimes from '../components/OpeningTimes';
 import Weather from '../components/Weather';
+import CommentsForm from '../components/CommentsForm';
+import CommentList from '../components/CommentList';
 
 
 function BeergardenDetails({route , navigation}) {
@@ -13,7 +15,6 @@ function BeergardenDetails({route , navigation}) {
     const {data} = route.params; 
 
     const image = require('../assets/garden-background.png')
-    console.log(data)
     return (
         <ScrollView style={styles.container}>
             <ImageBackground source={image} style={styles.image} resizeMode="cover">
@@ -23,10 +24,10 @@ function BeergardenDetails({route , navigation}) {
                 <Address styles={styles} />
                 <OpeningTimes styles={styles}/>
                 <Weather/>
-                {/*<CommentsForm mobileWidth={mobileWidth}></CommentsForm>
-                <CommentList mobileWidth={mobileWidth}></CommentList> */}
-                <Footer navigation={navigation}/>
+                <CommentsForm ></CommentsForm>
+                <CommentList></CommentList> 
             </ImageBackground>
+                <Footer navigation={navigation}/>
         </ScrollView>
     );
 }
@@ -34,12 +35,13 @@ function BeergardenDetails({route , navigation}) {
 export default BeergardenDetails;
 const styles = StyleSheet.create({
     container : {
-        flex : 1
+        flex : 1,
     },
     image : {
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
-        height: '100%'
+        height: '100%',
+        marginBottom: 40 
     },
     detailsContainer : {
         display: 'flex',
@@ -64,7 +66,10 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '700',
         display:'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: {width: -10, height: 10},
+        textShadowRadius: 10
     }, 
     icon : {
         height: 22,
