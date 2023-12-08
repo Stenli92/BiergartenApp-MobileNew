@@ -26,7 +26,7 @@ function MapGoogle({navigation}) {
               latitude: 48.137154,
               longitude : 11.576124
             }}
-            onPress={() => navigation.navigate('BeergardenDetails' ,  {title : "Marker Title " , id: "Marker ID", distance: "Marker Distance" })}
+            onPress={() => navigation.navigate('BeergardenDetails' ,  {data : data })}
           >
             <Image source={icon}></Image>
           </Marker>
@@ -36,6 +36,14 @@ function MapGoogle({navigation}) {
       </View>
     );
 }
+
+const data = 
+  {
+      id: 1,
+      title: "Title 1",
+      distance : 3574,
+      description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
+  }
 
 const styles = StyleSheet.create({
     container: {

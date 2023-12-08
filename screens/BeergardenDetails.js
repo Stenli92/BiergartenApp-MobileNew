@@ -1,28 +1,33 @@
 import React from 'react';
-import { Text , View , StyleSheet , ImageBackground} from 'react-native';
+import { Text , View , StyleSheet , ImageBackground, ScrollView} from 'react-native';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import GardenDetails from '../components/GardenDetails';
+import Address from '../components/Address';
+import OpeningTimes from '../components/OpeningTimes';
+import Weather from '../components/Weather';
 
 
 function BeergardenDetails({route , navigation}) {
 
-    const {title , id , distance} = route.params; 
+    const {data} = route.params; 
 
     const image = require('../assets/garden-background.png')
+    console.log(data)
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <ImageBackground source={image} style={styles.image} resizeMode="cover">
                 <Header navigation ={navigation}/>
                 {/* {mobileWidth ? '' : <MapGarden />} */}
-                {/* <GardenDetails title={title} id={id} distance={distance}/>
+                 <GardenDetails styles={styles} title={data.title} description={data.description}/>
                 <Address styles={styles} />
                 <OpeningTimes styles={styles}/>
-                <Weather mobileWidth={mobileWidth}/>
-                <CommentsForm mobileWidth={mobileWidth}></CommentsForm>
+                <Weather/>
+                {/*<CommentsForm mobileWidth={mobileWidth}></CommentsForm>
                 <CommentList mobileWidth={mobileWidth}></CommentList> */}
                 <Footer navigation={navigation}/>
             </ImageBackground>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -35,5 +40,35 @@ const styles = StyleSheet.create({
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         height: '100%'
-    }
+    },
+    detailsContainer : {
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'column', 
+        gap: 20,
+        marginTop: 20,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    titleAndIcon : {
+        transform : 'translateX(-3rem)'
+    },
+    text : {
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'left'
+    },
+    title: {
+        color: '#FFF',
+        fontSize: 24,
+        fontWeight: '700',
+        display:'flex',
+        alignItems: 'center'
+    }, 
+    icon : {
+        height: 22,
+        width: 22
+    },
+ 
 })

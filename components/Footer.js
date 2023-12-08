@@ -6,7 +6,10 @@ function Footer({navigation}) {
 
     return (
     <View style={styles.container}>
-      <Pressable style={styles.pressable} >
+      <Pressable style={styles.pressable}
+        onPress={() => navigation.navigate('BeergardenMap')}
+      
+      >
         <Image source={require("../assets/home.png")} alt="back" />
       </Pressable>
      
