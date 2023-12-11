@@ -16,10 +16,10 @@ function CloseGardens({navigation , showClosest , setShowClosest}) {
                     <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {data : data})}>
                         <ImageBackground style={styles.gardenContainer} source={require('../assets/close-bgarden-back.png')}>
 
-                            <Text className="name" style={styles.distanceAndName} >{data.title}</Text>
-                            <View >
+                            <Text style={styles.distanceAndName} >{data.title}</Text>
+                            <View>
                                 <Text style={styles.distanceAndName}>
-                                    <Image
+                                    <Image 
                                         source={require("../assets/small-location.png")}
                                         alt=""
                                     />  
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     garden: {
         borderTopEndRadius: 30,
         height: 150,
+        marginBottom: 10
     },
     icon : {
         display: 'flex',
@@ -99,9 +100,9 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         height: 40,
         display: 'flex',
-        gap: 0.4,
         overflow: 'hidden', 
-        margin : 20
+        margin : 10,
+        bottom: 0
     }
     
   });

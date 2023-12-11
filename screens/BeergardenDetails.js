@@ -16,7 +16,9 @@ function BeergardenDetails({route , navigation}) {
 
     const image = require('../assets/garden-background.png')
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
+        <ScrollView>
+            
             <ImageBackground source={image} style={styles.image} resizeMode="cover">
                 <Header navigation ={navigation}/>
                 {/* {mobileWidth ? '' : <MapGarden />} */}
@@ -27,8 +29,9 @@ function BeergardenDetails({route , navigation}) {
                 <CommentsForm ></CommentsForm>
                 <CommentList></CommentList> 
             </ImageBackground>
-                <Footer navigation={navigation}/>
         </ScrollView>
+                <Footer navigation={navigation}/>
+        </View>
     );
 }
 

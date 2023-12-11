@@ -1,5 +1,5 @@
 import  {useState} from 'react'
-import {StyleSheet, TextInput, View , TouchableOpacity , Image} from 'react-native';
+import {StyleSheet, TextInput, View , TouchableOpacity , Image, Pressable} from 'react-native';
 
 function SearchBar() {
 
@@ -37,7 +37,7 @@ function handleStyles(){
             margin: '1vw',
             justifyContent: 'space-between',
             alignItems: 'center',
-            width: '98vw' ,
+            width: '100%' ,
             position: 'absolute',
         },
         
@@ -54,19 +54,19 @@ function handleStyles(){
         input: {
             fontSize: 20,
             color: 'black',
-            padding: '1.5rem',
-            marginLeft: '2.4rem',
+            padding: 15,
+            marginLeft: 25,
             alignItems: 'center',
-            width: '100%',
+            width: '80%',
             zIndex: 9,
     
         },
         icon: {
-            height: '27px',
-            width: '27px',
+            height: 22,
+            width: 22,
             zIndex: 10,
-            margin: '1rem',
-            marginTop: '1.5rem'
+            margin: 10,
+            marginTop: 20
         }
     });
 }
