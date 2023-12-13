@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Alert, PermissionsAndroid } from 'react-native';
 
+// IMPORTANT !!!
+// Change this to your pc local ip adress for testing !!!
+const hostPCipAdress = `192.168.0.245:3000`;
+// IMPORTANT !!!
+
 const getCoordsAndId = () => {
 const [coords, setCoords] = useState([]);
 
@@ -12,8 +17,10 @@ const [coords, setCoords] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://${host}/api/getdata');
-        const data = await response.json();
+        const response = await fetch(`http://${hostPCipAdress}/getdata`);
+        if (response.ok) {
+          const data = await response.json();
+        }
         populateCoords(data.results);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -70,7 +77,7 @@ const getGeolocation = () => {
 };
 
 const getDataById = async (id) => {
-    const res = await fetch(`http://${host}/api/search/${id}`);
+    const res = await fetch(`http://${hostPCipAdress}/search/${id}`);
   
     if (res.ok) {
       const data = await res.json();
@@ -79,7 +86,7 @@ const getDataById = async (id) => {
   };
   
   const getDataBySearch = async (title) => {
-    const res = await fetch(`http://${host}/api/textSearch/${title}`);
+    const res = await fetch(`http://${hostPCipAdress}/textSearch/${title}`);
   
     if (res.ok) {
       const data = await res.json();
@@ -88,7 +95,7 @@ const getDataById = async (id) => {
   };
   
   const getComments = async (comment) => {
-    const res = await fetch(`http://${host}/api/comments/${comment}`);
+    const res = await fetch(`http://${hostPCipAdress}/comments/${comment}`);
   
     if (res.ok) {
       const data = await res.json();
