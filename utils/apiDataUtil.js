@@ -3,7 +3,7 @@ import { Alert, PermissionsAndroid } from 'react-native';
 
 // IMPORTANT !!!
 // Change this to your pc local ip adress for testing !!!
-const hostPCipAdress = `192.168.0.245:3000`;
+const hostPCipAdress = `192.168.1.4:3000`;
 // IMPORTANT !!!
 
 const getCoordsAndId = () => {
