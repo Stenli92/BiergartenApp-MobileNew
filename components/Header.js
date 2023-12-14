@@ -7,7 +7,8 @@ function Header({navigation}) {
        
             <View style={styles.container}>
                 <Pressable style={styles.titleContainer} onPress={() => navigation.goBack() } >
-                    <Text style={styles.title}><Image  source={require("../assets/back.png")} alt="back" />  Back </Text>
+                    <Image style={styles.image}  source={require("../assets/back.png")} alt="back" />
+                    <Text style={styles.title}>  Back </Text>
                 </Pressable>
             </View>
         
@@ -21,16 +22,19 @@ function handleStyles(){
             flexDirection: 'row',
             backgroundColor: 'rgba(0, 0, 0, 0.568)',
             overflow: 'hidden',
-            justifyContent: 'space-between',
             transition: 'top 0.2s ease-in-out',
+            padding: 5
         } ,
         title : {
             display: 'flex',
-            alignItems: 'center',
-            gap: 0.5,
-            marginBottom: 10,
-            fontSize: 16,
+            fontSize: 18,
             color : '#FFF'
+        },
+        titleContainer : {
+            display : 'flex',
+            justifyContent: 'center',
+            flexDirection : 'row'
+
         }
     })
 }

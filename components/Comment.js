@@ -56,6 +56,8 @@ function useStyles() {
         commentText: {
             fontSize: 18,
             color: '#8b8b8b',
+            flexShrink : 1
+            
         } ,
         image: {
             height: 20,

@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import { View , Text , TextInput , Pressable , StyleSheet} from 'react-native';
+import { View , Text , TextInput , TouchableOpacity , StyleSheet} from 'react-native';
 
 
 function CommentsForm({mobileWidth}) {
@@ -39,9 +39,9 @@ function CommentsForm({mobileWidth}) {
               placeholderTextColor={'#8b8b8b'}
               onChange={(e) => setComment(e.currentTarget.value)}
             />
-            <Pressable style={styles.button}>
+            <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Comment</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
     );
