@@ -16,7 +16,7 @@ function CommentList({mobileWidth , id}) {
         <View style={styles.container}>
             {comments?.map((comment) => {
                 return (
-                    <Comment key={comment.id} comment={comment} mobileWidth={mobileWidth} />
+                    <Comment key={comment?.id} comment={comment} mobileWidth={mobileWidth} />
                 );
             })}
         </View>
