@@ -1,7 +1,12 @@
 import React ,{useState}from 'react';
 import { Pressable, Text , StyleSheet , ImageBackground  ,View , Image, ScrollView, TouchableOpacity} from 'react-native';
+import { calculateDistance } from '../utils/DistanceCalculator';
 
 function CloseGardens({navigation , showClosest , setShowClosest}) {
+
+    const allGardens = calculateDistance();
+
+    console.log(allGardens);
 
     return (
         <View className="close-gardens" style={showClosest ? styles.container : {display : 'none'}}>
@@ -10,18 +15,17 @@ function CloseGardens({navigation , showClosest , setShowClosest}) {
                 </View>
                 <ScrollView style={styles.gardensContainer}>
 
-                    {closeGardens
-                    .sort((a, b) => a.distance - b.distance)
+                    {allGardens
                     .map((data) => (
-                    <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {data : data})}>
+                    <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {id : id})}>
                         <ImageBackground style={styles.gardenContainer} source={require('../assets/close-bgarden-back.png')}>
 
                             <Text style={styles.distanceAndName} >{data.title}</Text>
-                            <View>
+                            <View styles={styles.distanceAndNameContainer}>
                                 <Text style={styles.distanceAndName}>
                                     <Image 
                                         source={require("../assets/small-location.png")}
-                                        alt=""
+                                        alt="image"
                                     />  
                                         {data.distance > 1000
                                             ? `  ${(data.distance / 1000).toFixed(0)} km`
@@ -71,7 +75,6 @@ const styles = StyleSheet.create({
     garden: {
         borderTopEndRadius: 30,
         height: 150,
-        marginBottom: 10
     },
     icon : {
         display: 'flex',
@@ -97,12 +100,16 @@ const styles = StyleSheet.create({
     },
     distanceAndName : {
         color: '#FFF',
+        fontWeight: 'bold',
         shadowColor: '#000',
         height: 40,
         display: 'flex',
         overflow: 'hidden', 
-        margin : 10,
-        bottom: 0
+        padding : 10,
+        marginBottom: 5
+    } ,
+    distanceAndNameContainer : {
+        height: 45
     }
     
   });

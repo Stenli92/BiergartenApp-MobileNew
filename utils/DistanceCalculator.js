@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCoordsAndId, getGeolocation } from './apiDataUtil';
+import { getCoordsAndId, getGeoLocation } from './apiDataUtil';
 
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
   const rad = (x) => x * (Math.PI / 180);
@@ -24,13 +24,13 @@ const haversineDistance = (lat1, lon1, lat2, lon2) => {
 const calculateDistance = () => {
     const distances = [];
     const coords = getCoordsAndId();
-    const currentLocation = getGeolocation();
+    const currentLocation = getGeoLocation();
   
     coords.map((brewery) => {
       const [lat, lng, id, title] = brewery.split(',');
       const distance = haversineDistance(
-        currentLocation.coordinates.lat,
-        currentLocation.coordinates.lng,
+        currentLocation?.coords?.latitude,
+        currentLocation?.coords?.longitude,
         parseFloat(lat),
         parseFloat(lng),
       );
