@@ -17,7 +17,7 @@ function CloseGardens({navigation , showClosest , setShowClosest}) {
 
                     {allGardens
                     .map((data) => (
-                    <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {id : id})}>
+                    <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {id : data.id})}>
                         <ImageBackground style={styles.gardenContainer} source={require('../assets/close-bgarden-back.png')}>
 
                             <Text style={styles.distanceAndName} >{data.title}</Text>
