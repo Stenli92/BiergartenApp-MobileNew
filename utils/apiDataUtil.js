@@ -3,11 +3,12 @@ import { Alert, PermissionsAndroid } from 'react-native';
 
 // IMPORTANT !!!
 // Change this to your pc local ip adress for testing !!!
-const hostPCipAdress = `192.168.1.4:3000`;
+const hostPCipAdress = `192.168.0.245:3000`;
 // IMPORTANT !!!
 
 const getCoordsAndId = () => {
 const [coords, setCoords] = useState([]);
+let fetchedDataForAllGardens;
 
   function populateCoords(data) {
     const newCoords = data.map((item) => `${item.coordinates},${item.id},${item.title}`);
@@ -19,9 +20,9 @@ const [coords, setCoords] = useState([]);
       try {
         const response = await fetch(`http://${hostPCipAdress}/getdata`);
         if (response.ok) {
-          const data = await response.json();
+          fetchedDataForAllGardens = await response.json();
         }
-        populateCoords(data.results);
+        populateCoords(fetchedDataForAllGardens);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
