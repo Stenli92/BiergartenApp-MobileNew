@@ -1,5 +1,4 @@
-import React from 'react';
-import { Text , View , StyleSheet , ImageBackground, ScrollView} from 'react-native';
+import { View , StyleSheet , ImageBackground, ScrollView} from 'react-native';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import GardenDetails from '../components/GardenDetails';
@@ -8,26 +7,29 @@ import OpeningTimes from '../components/OpeningTimes';
 import Weather from '../components/Weather';
 import CommentsForm from '../components/CommentsForm';
 import CommentList from '../components/CommentList';
+import { getDataById } from '../utils/apiDataUtil';
 
 
 function BeergardenDetails({route , navigation}) {
 
-    const {data} = route.params; 
+    const {id} = route.params; 
+
+    const data = getDataById(id);
 
     const image = require('../assets/garden-background.png')
+
     return (
         <View style={styles.container}>
         <ScrollView>
-            
             <ImageBackground source={image} style={styles.image} resizeMode="cover">
                 <Header navigation ={navigation}/>
+                <GardenDetails title ={data?.title} description={data?.description} styles={styles} />
                 {/* {mobileWidth ? '' : <MapGarden />} */}
-                 <GardenDetails styles={styles} title={data.title} description={data.description}/>
-                <Address styles={styles} />
-                <OpeningTimes styles={styles}/>
+                <Address styles={styles} address={data?.address}/>
+                <OpeningTimes styles={styles} openingtimes={data?.openingtimes}/>
                 <Weather/>
                 <CommentsForm ></CommentsForm>
-                <CommentList></CommentList> 
+                <CommentList></CommentList>
             </ImageBackground>
         </ScrollView>
                 <Footer navigation={navigation}/>

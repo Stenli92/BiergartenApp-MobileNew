@@ -29,12 +29,6 @@ function MapGoogle({navigation}) {
           let lat = latNLng[0];
           let lng = latNLng[1];
           const id = latNLng[2];
-          const title = latNLng[3];
-
-          // console.log("lat",lat);
-          // console.log("lng",lng);
-          // console.log("id",id);
-          // console.log("title",title);
 
           return (
             
@@ -45,7 +39,7 @@ function MapGoogle({navigation}) {
                 latitude : parseFloat(lat),
                 longitude  : parseFloat(lng),
               }}
-              onPress={() => navigation.navigate('BeergardenDetails' ,  {data : data })}
+              onPress={() => navigation.navigate('BeergardenDetails' ,  {id : id })}
             >
             <Image source={icon}></Image>
             </Marker>

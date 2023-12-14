@@ -5,7 +5,7 @@ import * as Location  from 'expo-location';
 
 // IMPORTANT !!!
 // Change this to your pc local ip adress for testing !!!
-const hostPCipAdress = `192.168.0.245:3000`;
+const hostPCipAdress = `192.168.1.4:3000`;
 // IMPORTANT !!!
 
 const getCoordsAndId = () => {
@@ -88,13 +88,27 @@ const getGeoLocation = () => {
 };
 
 
-const getDataById = async (id) => {
-    const res = await fetch(`http://${hostPCipAdress}/search/${id}`);
-  
-    if (res.ok) {
-      const data = await res.json();
-      return data;
+const getDataById = (id) => {
+  const [data , setData] = useState([]);
+  let gardenData;
+
+  useEffect(() => {
+
+    fetchData();
+  },[])
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`http://${hostPCipAdress}/search/${id}`);
+      if (res.ok) {
+        gardenData = await res.json();
+        setData(gardenData);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
+  };
+
+    return data[0];
   };
   
   const getDataBySearch = async (title) => {
