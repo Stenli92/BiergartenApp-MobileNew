@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Alert, PermissionsAndroid } from 'react-native';
+import * as Location  from 'expo-location';
+
 
 // IMPORTANT !!!
 // Change this to your pc local ip adress for testing !!!
@@ -33,48 +35,57 @@ const [coords, setCoords] = useState([]);
   return coords;
 };
 
-const getGeolocation = () => {
-  const [geoLocation, setGeoLocation] = useState({
-    loaded: false,
-    coordinates: { lat: 0, lng: 0 },
-  });
+function getAllGardens(){
+  const [gardens , setGardens] = useState()
 
   useEffect(() => {
-    const requestLocationPermission = async () => {
+    const fetchData = async () => {
       try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Location Permission',
-            message: 'App needs access to your location.',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              setGeoLocation({
-                loaded: true,
-                coordinates: {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude,
-                },
-              });
-            },
-            (error) => Alert.alert('Error', `Failed to get location: ${error.message}`),
-          );
-        } else {
-          Alert.alert('Location Permission Denied');
-        }
-      } catch (err) {
-        console.warn(err);
+        const response = await fetch('http://${host}/api/getdata');
+        const data = await response.json();
+        setGardens(data.results);
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     };
 
-    requestLocationPermission();
+    fetchData();
   }, []);
 
+  return gardens;
+}
+
+const getGeoLocation = () => {
+ 
+  const [geoLocation , setLocation] = useState({
+    coords : {
+      latitude : 0,
+      longitude: 0
+    }
+  });
+
+  useEffect(() => {
+    const getPermissions = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log("Please grant location permissions");
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation({
+        coords : {
+          latitude: currentLocation.coords.latitude,
+          longitude : currentLocation.coords.longitude
+        }
+      });
+    };
+    getPermissions();
+  }, []);
+    
   return geoLocation;
 };
+
 
 const getDataById = async (id) => {
     const res = await fetch(`http://${hostPCipAdress}/search/${id}`);
@@ -154,6 +165,7 @@ export {
   getDataById,
   getDataBySearch,
   getFavourites,
-  getGeolocation,
+  getGeoLocation,
   getWeather,
+  getAllGardens
 };
