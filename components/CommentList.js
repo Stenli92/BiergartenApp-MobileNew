@@ -1,12 +1,16 @@
 import React from 'react';
 import { View , Text , StyleSheet} from 'react-native';
 import Comment from './Comment';
+import { getComments } from '../utils/apiDataUtil';
 
 
-function CommentList({mobileWidth}) {
+function CommentList({mobileWidth , id}) {
 
     const styles = useStyles(mobileWidth);
+        
+    const comments = getComments(id);
 
+    console.log(comments)
 
     return (
         <View style={styles.container}>
@@ -19,26 +23,6 @@ function CommentList({mobileWidth}) {
     );
 }
 
-const comments = [
-    {
-    id: 1,
-    name: "Chicho",
-    dateAndTime: "12:30 11.11.11",
-    commentText : "lasdnnldsklinas dkfnsjnakf sdnfuiahisudbf"
-    },
-    {
-    id: 2,
-    name: "Asen",
-    dateAndTime: "12:23 14.11.11",
-    commentText : "lasdnnldsklinas dkfnsjnakf sdnfuiahisudbf"
-    },
-    {
-    id: 3,
-    name: "Hasan",
-    dateAndTime: "12:23 45.11.11",
-    commentText : "lasdnnldsklinas dkfnsjnakf sdnfuiahisudbf"
-    }
-]
 
 function useStyles() {
 

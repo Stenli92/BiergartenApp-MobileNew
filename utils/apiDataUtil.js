@@ -120,13 +120,27 @@ const getDataById = (id) => {
     }
   };
   
-  const getComments = async (comment) => {
-    const res = await fetch(`http://${hostPCipAdress}/comments/${comment}`);
+  const getComments = (id) => {
   
-    if (res.ok) {
-      const data = await res.json();
+    const [data , setData] = useState([]);
+    let comments;
+  
+    useEffect(() => {
+      fetchData();
+    },[])
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`http://${hostPCipAdress}/comments/${id}`);
+        if (res.ok) {
+          comments = await res.json();
+          setData(comments);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
       return data;
-    }
   };
   const getWeather = async () => {
     const res = await fetch(

@@ -29,7 +29,7 @@ function BeergardenDetails({route , navigation}) {
                 <OpeningTimes styles={styles} openingtimes={data?.openingtimes}/>
                 <Weather/>
                 <CommentsForm ></CommentsForm>
-                <CommentList></CommentList>
+                <CommentList id={id}></CommentList>
             </ImageBackground>
         </ScrollView>
                 <Footer navigation={navigation}/>
