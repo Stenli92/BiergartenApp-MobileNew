@@ -3,9 +3,12 @@ import { StatusBar } from 'expo-status-bar';
 import { View , StyleSheet} from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Image } from 'react-native';
+import { getCoordsAndId } from '../utils/apiDataUtil';
 
 
 function MapGoogle({navigation}) {
+
+  const coordsAndId = getCoordsAndId();
 
   const icon = require('../assets/beer-marker.png')
     return (
@@ -20,16 +23,34 @@ function MapGoogle({navigation}) {
             longitudeDelta: 0.6,
           }}
         >
-          <Marker
-          style={styles.marker}
-            coordinate={{
-              latitude: 48.137154,
-              longitude : 11.576124
-            }}
-            onPress={() => navigation.navigate('BeergardenDetails' ,  {data : data })}
-          >
+        {coordsAndId.map(function (marker) {
+          const latNLng = marker.split(',');
+
+          let lat = latNLng[0];
+          let lng = latNLng[1];
+          const id = latNLng[2];
+          const title = latNLng[3];
+
+          // console.log("lat",lat);
+          // console.log("lng",lng);
+          // console.log("id",id);
+          // console.log("title",title);
+
+          return (
+            
+            <Marker
+              key={id}
+              style={styles.marker}
+              coordinate={{
+                latitude : parseFloat(lat),
+                longitude  : parseFloat(lng),
+              }}
+              onPress={() => navigation.navigate('BeergardenDetails' ,  {data : data })}
+            >
             <Image source={icon}></Image>
-          </Marker>
+            </Marker>
+          );
+        })}
           
         </MapView>
         <StatusBar style="auto" />
