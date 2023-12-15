@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Alert, PermissionsAndroid } from 'react-native';
 import * as Location  from 'expo-location';
 
 

@@ -39,3 +39,6 @@ yarn.lock
 services/ServerRoutes/routes.js
 package.json
 utils/apiDataUtil.js
+package-lock.json
+.gitignore
+yarn.lock

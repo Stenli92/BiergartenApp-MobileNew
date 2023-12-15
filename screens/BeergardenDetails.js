@@ -1,4 +1,4 @@
-import { View , StyleSheet , ImageBackground, ScrollView} from 'react-native';
+import { View , StyleSheet , ImageBackground, ScrollView , useWindowDimensions} from 'react-native';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import GardenDetails from '../components/GardenDetails';
@@ -14,6 +14,9 @@ function BeergardenDetails({route , navigation}) {
 
     const {id} = route.params; 
 
+    const {width , height} = useWindowDimensions();
+    const mobileWidth = (width < 768);
+
     const data = getDataById(id);
 
     const image = require('../assets/garden-background.png')
@@ -27,7 +30,7 @@ function BeergardenDetails({route , navigation}) {
                 {/* {mobileWidth ? '' : <MapGarden />} */}
                 <Address styles={styles} address={data?.address}/>
                 <OpeningTimes styles={styles} openingtimes={data?.openingtimes}/>
-                <Weather/>
+                <Weather mobileWidth={mobileWidth}/>
                 <CommentsForm ></CommentsForm>
                 <CommentList id={id}></CommentList>
             </ImageBackground>

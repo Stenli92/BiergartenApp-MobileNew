@@ -1,9 +1,9 @@
 import  {useState} from 'react'
 import {StyleSheet, TextInput, View , TouchableOpacity , Image, Pressable} from 'react-native';
 
-function SearchBar() {
+function SearchBar({mobileWidth}) {
 
-    const style = handleStyles();
+    const style = handleStyles(mobileWidth);
 
 
     const [text, setText] = useState('');
@@ -27,7 +27,7 @@ function SearchBar() {
     );
 }
 
-function handleStyles(){
+function handleStyles(mobileWidth){
 
     return StyleSheet.create({
 
@@ -37,14 +37,14 @@ function handleStyles(){
             margin: '1vw',
             justifyContent: 'space-between',
             alignItems: 'center',
-            width: '100%' ,
+            width: mobileWidth ? '98%' : '78%',
             position: 'absolute',
         },
         
         container: {
             zIndex: 1,
             display: 'flex',
-            width: "100%",
+            width:  mobileWidth ? "100%" : '80%',
             position: 'absolute',
             backgroundColor: 'white',
             border: 'none',

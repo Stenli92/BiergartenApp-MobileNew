@@ -10,13 +10,11 @@ function CommentList({mobileWidth , id}) {
         
     const comments = getComments(id);
 
-    console.log(comments)
-
     return (
         <View style={styles.container}>
-            {comments?.map((comment) => {
+            {comments?.map((comment , index) => {
                 return (
-                    <Comment key={comment?.id} comment={comment} mobileWidth={mobileWidth} />
+                    <Comment key={index} comment={comment} mobileWidth={mobileWidth} />
                 );
             })}
         </View>

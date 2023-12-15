@@ -2,24 +2,26 @@ import React from 'react';
 import { Text , Image , View , StyleSheet , Pressable , TouchableOpacity} from 'react-native';
 
 
-function Favourite({title}) {
+function Favourite({title, mobileWidth}) {
+
+    const style = handleStyles(mobileWidth);
+
     return (
-        <TouchableOpacity style={style.container} >
-            
+        <TouchableOpacity style={style.container}>
                 <Image style={style.image} source={require('../assets/close-bgarden-back.png')} alt="image" />
                 <Text style={style.title}>{title}</Text>
-           
                 <TouchableOpacity style={style.closeButton}>
                     <Text style={{color : 'white' , height: 20}}> &#10006; </Text>
                 </TouchableOpacity>
-            
         </TouchableOpacity>
     );
 }
 
-const style = StyleSheet.create({
+function handleStyles(mobileWidth){
+
+    return StyleSheet.create({
     container : {
-        width: '100%',
+        width: mobileWidth ? '45%' : "100%",
         fontSize : 18,
         borderRadius: 8,
         display: 'flex',
@@ -44,6 +46,6 @@ const style = StyleSheet.create({
         color : 'white',
         textAlign: 'center'
     }
-})
+})}
 
 export default Favourite;

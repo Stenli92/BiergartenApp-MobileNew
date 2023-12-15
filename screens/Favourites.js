@@ -1,11 +1,14 @@
 import React from 'react';
-import { Text , ImageBackground , View , StyleSheet , ScrollView} from 'react-native';
+import { Text , ImageBackground , View , StyleSheet , ScrollView , useWindowDimensions} from 'react-native';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Favourite from '../components/Favourite';
 
 function Favourites({navigation}) {
     const image = require('../assets/garden-background.png')
+
+    const {width , height} = useWindowDimensions();
+    const mobileWidth = (width < 768);
 
     return (
         <View style={styles.container}>
@@ -14,9 +17,9 @@ function Favourites({navigation}) {
                 <ScrollView style={styles.favourites}>
                     {favouritesArray != null && favouritesArray.length != 0
                     ? favouritesArray.map((favourite , index) => {
-                        return <Favourite title={favourite.title} key={index} />;
+                        return <Favourite mobileWidth={mobileWidth} title={favourite.title} key={index} />;
                     })
-                    : <View className='no-favourites'><Text className="no-favourites__notification">No favourites added!</Text></View> }
+                    : <View className='no-favourites'><Text>No favourites added!</Text></View> }
                 </ScrollView>
                 <Footer navigation={navigation}/>
             </ImageBackground>

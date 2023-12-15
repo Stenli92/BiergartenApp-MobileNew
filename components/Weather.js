@@ -3,7 +3,7 @@ import {View , Text , StyleSheet , Image} from 'react-native';
 import WeatherWeekDay from './WeatherWeekDay';
 
 
-function Weather() {
+function Weather({mobileWidth}) {
 
   
     const [ data , setData] = useState();
@@ -44,14 +44,28 @@ function Weather() {
             </View>
             <View style={styles.weekDayContainer}>
                     { temperature?.map((element, index) => {
-                        if (index < 3) {
-                            return (
-                            <WeatherWeekDay
-                                temp={element}
-                                day={weekdays[index]}
-                                key={index}
-                            />
-                            );
+
+                        if(mobileWidth){
+
+                            if (index < 3) {
+                                return (
+                                <WeatherWeekDay
+                                    temp={element}
+                                    day={weekdays[index]}
+                                    key={index}
+                                />
+                                );
+                            }
+                        } else {
+                            if (index < 5) {
+                                return (
+                                <WeatherWeekDay
+                                    temp={element}
+                                    day={weekdays[index]}
+                                    key={index}
+                                />
+                                );
+                            }
                         }
                     })}
             </View>
