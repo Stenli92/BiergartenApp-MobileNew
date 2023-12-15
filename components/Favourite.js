@@ -21,7 +21,7 @@ function handleStyles(mobileWidth){
 
     return StyleSheet.create({
     container : {
-        width: mobileWidth ? '45%' : "100%",
+        width: mobileWidth ? '100%' : "45%",
         fontSize : 18,
         borderRadius: 8,
         display: 'flex',
