@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import * as Location  from 'expo-location';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 // IMPORTANT !!!
 // Change this to your pc local ip adress for testing !!!
-const hostPCipAdress = `192.168.1.4:3000`;
+const hostPCipAdress = `10.10.1.103:3000`;
 // IMPORTANT !!!
 
 const getCoordsAndId = () => {
@@ -141,6 +142,34 @@ const getDataById = (id) => {
   
       return data;
   };
+
+  const submitComment = (id,comment, comentName) => {
+
+    const today = new Date();
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+    const dateTime = `${date} ${time}`;
+
+    let commentData ={
+        id:id,
+        name: comentName,
+        comment: comment,
+        date: dateTime
+    }
+
+    fetch('http://10.10.1.103:3000/submitComment', {
+      method: 'POST',
+      headers : {
+          'Accept' : 'application/json',
+          'Content-Type' : 'application/json',
+      },
+      body: JSON.stringify({commentData})
+    });
+  };
+
+
   const getWeather = async () => {
     const res = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=48.1374&longitude=11.5755&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max`,
@@ -152,39 +181,41 @@ const getDataById = (id) => {
     }
   };
   
-  function getFavourites() {
-    let favorite;
-  
-    if (typeof window !== 'undefined') {
-      favorite = localStorage.getItem('favorite');
-      return JSON.parse(favorite);
+  const addToFavorites = async (key, value) => {
+
+    try {
+        return await AsyncStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        console.error('AsyncStorage#setItem error: ' + error.message);
     }
-  }
-  
-  function addToFavorites(id, title, setModal, modal) {
-    let favoriteData;
-  
-    if (typeof window !== 'undefined') {
-      favoriteData = JSON.parse(localStorage.getItem('favorite') || '{}');
-    }
-    if (localStorage.getItem('favorite') === null) {
-      favoriteData = [];
-      favoriteData.push({ id: `${id}`, title: `${title}` });
-      localStorage.setItem('favorite', JSON.stringify(favoriteData));
-      setModal(!modal);
-    } else if (localStorage.getItem('favorite')?.length === 0) {
-      favoriteData.push({ id: `${id}`, title: `${title}` });
-      localStorage.setItem('favorite', JSON.stringify(favoriteData));
-      setModal(!modal);
-    } else {
-        const found = favoriteData.some((fav) => fav.id === id);
-      if (!found) {
-        favoriteData.push({ id: `${id}`, title: `${title}` });
-        localStorage.setItem('favorite', JSON.stringify(favoriteData));
-        setModal(!modal);
-      }
-    }
-  }
+}
+
+
+const getFavourites = (value) => {
+  const [asyncData , setAsyncData] = useState([]);
+
+  useEffect(() => {
+
+    fetchAsyncData();
+  },[])
+
+  const fetchAsyncData = async () => {
+    return await AsyncStorage.getItem(value)
+    .then((result) => {
+        if (result) {
+            try {
+                result = JSON.parse(result);
+                setAsyncData(result);
+            } catch (e) {
+                console.error('AsyncStorage#getItem error deserializing JSON for key: ' + key, e.message);
+            }
+        }
+        
+    });
+  };
+
+  return asyncData;
+}
 
 export {
   addToFavorites,
@@ -195,5 +226,6 @@ export {
   getFavourites,
   getGeoLocation,
   getWeather,
-  getAllGardens
+  getAllGardens,
+  submitComment
 };

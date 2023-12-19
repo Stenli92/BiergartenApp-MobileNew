@@ -1,17 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const cors = require('cors');
 
 // CHANGE THIS TO LOCAL DB VALUES
 const connection = mysql.createConnection({
    host     : 'localhost',
 	user     : 'root',
-	password : 'root',
-	database : 'beergardenmunich'
+	password : 'verysecretbeergardenpass',
+	database : 'beergardendatabase'
 });
 
 // Starting our app.
 const app = express();
+
+app.use(express.json());
 
 // Creating a GET route that returns data
 app.get('/getdata', function (req, res) {
@@ -32,7 +35,6 @@ app.get('/getdata', function (req, res) {
 
 app.get('/comments/:id', function (req, res) {
 	const id = req.params.id;
-	console.log('Request Id:', req.params.id);
     connection.connect(function (err, connection) {
 
     // Executing the MySQL query. Returns comments based on the id. ( express framework middleware )
@@ -46,7 +48,6 @@ app.get('/comments/:id', function (req, res) {
 
 app.get('/search/:id', function (req, res) {
 	const id = req.params.id;
-	console.log('Request Id:', req.params.id);
     connection.connect(function (err, connection) {
 
     // Executing the MySQL query. Returns comments based on the id. ( express framework middleware )
@@ -60,7 +61,6 @@ app.get('/search/:id', function (req, res) {
 
 app.get('/textSearch/:searchValue', function (req, res) {
 	const searchValue = req.params.searchValue;
-	console.log('Request Id:', req.params.id);
     connection.connect(function (err, connection) {
 
     // Executing the MySQL query. Returns comments based on the id. ( express framework middleware )
@@ -72,41 +72,20 @@ app.get('/textSearch/:searchValue', function (req, res) {
   });
 });
 
-
-
-const getCommentData = async () => {
-  const res = await fetch(
-    `http://localhost:3000/post/comment/`,
-  );
-  if (res.ok) {
-    const apiData = await res.json();
-    
-	const dbconnection = await connection.connect();
-	const today = new Date();
-	try {
-		const date = `${today.getFullYear()}-${
-		today.getMonth() + 1
-		}-${today.getDate()}`;
-    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-    const dateTime = `${date} ${time}`;
-
-    const { name, id, comment } = JSON.parse(JSON.stringify(req.body));
-    const query = `INSERT INTO Comments (name, commentText, beergardenId, dateAndTime) values ("${name}", "${comment}", ${id}, "${date} ${time}")`;
-
-    const values = [];
-    const [data] = await dbconnection.execute(query, values);
-    dbconnection.end();
-    res.status(200).json({ results: data });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-	
-	
-  }
-};
-
+app.post('/submitComment', function (req, res) {
+  //var comment = JSON.parse(req.body.data)
+  console.log(req.body.commentData);
+  connection.connect(function (err, connection) {
+    connection.query(`INSERT INTO Comments (name, commentText, beergardenId, dateAndTime)
+     values ("${req.body.commentData.name}", "${req.body.commentData.comment}", "${req.body.commentData.id}", "${req.body.commentData.date}")`,
+			function (error, results, fields) {
+      if (error) throw error;
+      res.send(results)
+    });
+  });
+})
 
 // Starting our server.
 app.listen(3000, () => {
- console.log('Go to http://localhost:3000/getdata so you can see the data.');
+ console.log('Node JS server is running on localhost:3000');
 });

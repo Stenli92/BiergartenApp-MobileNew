@@ -8,7 +8,9 @@ import Weather from '../components/Weather';
 import CommentsForm from '../components/CommentsForm';
 import CommentList from '../components/CommentList';
 import { getDataById } from '../utils/apiDataUtil';
-
+import { addToFavorites } from '../utils/apiDataUtil';
+import { getFavourites } from '../utils/apiDataUtil';
+import { submitComment } from '../utils/apiDataUtil';
 
 function BeergardenDetails({route , navigation}) {
 
@@ -18,6 +20,14 @@ function BeergardenDetails({route , navigation}) {
     const mobileWidth = (width < 768);
 
     const data = getDataById(id);
+
+    let favoriteData = [];
+    favoriteData.push({ id: `${id}`, title: `${data?.title}` });
+    addToFavorites("favorite", favoriteData);
+    
+    // console.log("favorite", getFavourites('favorite'));
+
+    submitComment('10','comment text', 'Commenter Name');
 
     const image = require('../assets/garden-background.png')
 
