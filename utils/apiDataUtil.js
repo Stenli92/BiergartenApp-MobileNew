@@ -180,11 +180,25 @@ const getDataById = (id) => {
       return data;
     }
   };
-  
-  const addToFavorites = async (value) => {
 
+  const addToFavorites = async (id, title) => {
+    let favorite;
     try {
-        return await AsyncStorage.setItem("favorite", JSON.stringify(value));
+      let asyncStrorageData = await AsyncStorage.getItem('favourite');
+      favorite = JSON.parse(asyncStrorageData || '[]');
+      if (favorite === null){
+        favorite = [];
+        favorite.push({ id: `${id}`, title: `${title}` });
+        AsyncStorage.setItem('favourite', JSON.stringify(favorite));
+      }
+      else {
+        console.log("favorite: ", favorite);
+        const found = favorite.some((fav) => fav.id === id);
+        if(!found) {
+          favorite.push({ id: `${id}`, title: `${title}` });
+          AsyncStorage.setItem('favourite', JSON.stringify(favorite));  
+        }
+     }
     } catch (error) {
         console.error('AsyncStorage#setItem error: ' + error.message);
     }

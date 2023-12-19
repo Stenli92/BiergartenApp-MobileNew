@@ -8,9 +8,7 @@ function Footer({navigation , id , title}) {
     let favoriteData = [];
 
     function handleAddToFavourites(){
-      favoriteData.push({ id: `${id}`, title: `${title}` });
-      addToFavorites(favoriteData);
-      console.log(favoriteData);
+      addToFavorites(id, title);
     }
 
 
