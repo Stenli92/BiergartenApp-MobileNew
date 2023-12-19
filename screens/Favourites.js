@@ -3,12 +3,18 @@ import { Text , ImageBackground , View , StyleSheet , ScrollView , useWindowDime
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Favourite from '../components/Favourite';
+import { getFavourites } from '../utils/apiDataUtil';
 
 function Favourites({navigation}) {
     const image = require('../assets/garden-background.png')
 
     const {width , height} = useWindowDimensions();
     const mobileWidth = (width < 768);
+
+const favouritesArray = getFavourites();
+
+console.log(favouritesArray);
+
 
     return (
         <View style={styles.container}>
@@ -19,7 +25,7 @@ function Favourites({navigation}) {
                     ? favouritesArray.map((favourite , index) => {
                         return <Favourite mobileWidth={mobileWidth} title={favourite.title} key={index} />;
                     })
-                    : <View className='no-favourites'><Text>No favourites added!</Text></View> }
+                    : <View style={styles.emptyContainer}><Text style={styles.text}>No favourites added!</Text></View> }
                 </ScrollView>
                 <Footer navigation={navigation}/>
             </ImageBackground>
@@ -40,62 +46,22 @@ const styles = StyleSheet.create({
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         height: '100%'
+    },
+    emptyContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor : 'rgba(0, 0, 0, 0.377)',
+        padding: 10,
+        height : 120,
+        width: '100%',
+    }, 
+    text: {
+        fontSize : 18,
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 })
-
-const favouritesArray = [
-    {
-        id: 1,
-        title: "Title 1",
-        distance : 3574,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-    },
-    {
-        id: 2,
-        title: "Title 2",
-        distance : 864,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-    }
-    ,
-    {
-        id: 3,
-        title: "Title 3",
-        distance : 353,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-    },
-    {
-        id: 4,
-        title: "Title 4",
-        distance : 53,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-    },
-    {
-        id: 5,
-        title: "Title 5",
-        distance : 162,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-
-    }
-    ,
-    {
-        id: 3,
-        title: "Title 3",
-        distance : 353,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-    },
-    {
-        id: 4,
-        title: "Title 4",
-        distance : 53,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-    },
-    {
-        id: 5,
-        title: "Title 5",
-        distance : 162,
-        description: 'Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.Lorem ipsum dolor sit amet consectetur. Purus in donec lectus scelerisque urna nam ut lectus. Neque pellentesque velit egestas bibendum tortor id. Lacus cursus orci volutpat ornare. Pharetra iaculis elementum mattis nunc tellus lacinia ornare pulvinar.'
-
-    }
-]
 
 export default Favourites;

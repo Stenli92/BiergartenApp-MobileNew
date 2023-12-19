@@ -181,17 +181,17 @@ const getDataById = (id) => {
     }
   };
   
-  const addToFavorites = async (key, value) => {
+  const addToFavorites = async (value) => {
 
     try {
-        return await AsyncStorage.setItem(key, JSON.stringify(value));
+        return await AsyncStorage.setItem("favorite", JSON.stringify(value));
     } catch (error) {
         console.error('AsyncStorage#setItem error: ' + error.message);
     }
 }
 
 
-const getFavourites = (value) => {
+const getFavourites = () => {
   const [asyncData , setAsyncData] = useState([]);
 
   useEffect(() => {
@@ -200,7 +200,7 @@ const getFavourites = (value) => {
   },[])
 
   const fetchAsyncData = async () => {
-    return await AsyncStorage.getItem(value)
+    return await AsyncStorage.getItem('favourite')
     .then((result) => {
         if (result) {
             try {

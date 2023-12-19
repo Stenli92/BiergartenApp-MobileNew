@@ -21,12 +21,6 @@ function BeergardenDetails({route , navigation}) {
 
     const data = getDataById(id);
 
-    let favoriteData = [];
-    favoriteData.push({ id: `${id}`, title: `${data?.title}` });
-    addToFavorites("favorite", favoriteData);
-    
-    // console.log("favorite", getFavourites('favorite'));
-
     submitComment('10','comment text', 'Commenter Name');
 
     const image = require('../assets/garden-background.png')
@@ -45,7 +39,7 @@ function BeergardenDetails({route , navigation}) {
                 <CommentList mobileWidth={mobileWidth} id={id}></CommentList>
             </ImageBackground>
         </ScrollView>
-                <Footer navigation={navigation}/>
+                <Footer title={data?.title} id={id} navigation={navigation}/>
         </View>
     );
 }
