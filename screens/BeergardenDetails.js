@@ -11,6 +11,8 @@ import { getDataById } from '../utils/apiDataUtil';
 import { addToFavorites } from '../utils/apiDataUtil';
 import { getFavourites } from '../utils/apiDataUtil';
 import { submitComment } from '../utils/apiDataUtil';
+import { useState } from 'react';
+import AddToFavModal from '../components/AddToFavModal';
 
 function BeergardenDetails({route , navigation}) {
 
@@ -18,6 +20,13 @@ function BeergardenDetails({route , navigation}) {
 
     const {width , height} = useWindowDimensions();
     const mobileWidth = (width < 768);
+    const [modal , setModal] = useState(false);
+
+    function toggleModal() {
+        setModal(!modal);
+    }
+
+
 
     const data = getDataById(id);
 
@@ -39,7 +48,8 @@ function BeergardenDetails({route , navigation}) {
                 <CommentList mobileWidth={mobileWidth} id={id}></CommentList>
             </ImageBackground>
         </ScrollView>
-                <Footer title={data?.title} id={id} navigation={navigation}/>
+                <Footer title={data?.title} id={id} navigation={navigation} toggleModal= {toggleModal}/>
+                {modal && <AddToFavModal title={data?.title} setModal={setModal}/> }
         </View>
     );
 }

@@ -11,7 +11,7 @@ function Favourite({title, mobileWidth , id , navigation}) {
     }
 
     return (
-        <TouchableOpacity style={style.container} onPress={() =>  navigation.navigate('BeergardenDetails' ,  {id : id })}>
+        <TouchableOpacity style={style.container} onPress={() => navigation.navigate('BeergardenDetails' ,  {id : id })}>
                 <Image style={style.image} source={require('../assets/close-bgarden-back.png')} alt="image" />
                 <Text style={style.title}>{title}</Text>
                 <TouchableOpacity style={style.closeButton} onPress={(e) => handleRemove()}>

@@ -1,17 +1,15 @@
-import React from 'react';
+import React , {useState} from  'react';
 import { Pressable, View , Image , Text , StyleSheet} from 'react-native';
 import { addToFavorites } from '../utils/apiDataUtil';
 
-function Footer({navigation , id , title}) {
+function Footer({navigation , id , title , toggleModal}) {
     const styles = useStyles();
-
-    let favoriteData = [];
 
     function handleAddToFavourites(){
       addToFavorites(id, title);
+      toggleModal();
     }
-
-
+   
     return (
     <View style={styles.container}>
       <Pressable style={styles.pressable}
@@ -33,7 +31,6 @@ function Footer({navigation , id , title}) {
         onPress={() => navigation.navigate('Favourites')}
       >
           <Image  source={require("../assets/gallery.png")} alt="gallery" />
-    
       </Pressable>
     </View>
     );
