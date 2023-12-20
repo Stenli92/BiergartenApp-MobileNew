@@ -4,8 +4,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Favourite from '../components/Favourite';
 import { getFavourites } from '../utils/apiDataUtil';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 function Favourites({navigation}) {
     const image = require('../assets/garden-background.png')
@@ -15,29 +13,10 @@ function Favourites({navigation}) {
 
 const favouritesArray = getFavourites();
 
-removeAppKeys = async () => {
-    let keys = []
-    try {
-      keys = await AsyncStorage.getAllKeys()
-      console.log(`Keys: ${keys}`) // Just to see what's going on
-      await AsyncStorage.multiRemove(keys)
-    } catch(e) {
-     console.log(e)
-    }
-    console.log('Done')
-  }
-
-console.log("favorites: ",favouritesArray);
-
-
     return (
         <View style={styles.container}>
             <ImageBackground source={image} style={styles.image} resizeMode="cover">
                 <Header navigation ={navigation}/>
-                <Button
-                    onPress={() => removeAppKeys()}
-                    title="Remove all"
-                />
                 <ScrollView style={styles.favourites}>
                     {favouritesArray != null && favouritesArray.length != 0
                     ? favouritesArray.map((favourite , index) => {

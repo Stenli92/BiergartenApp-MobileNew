@@ -1,13 +1,17 @@
 import React from 'react';
 import { Text , Image , View , StyleSheet , Pressable , TouchableOpacity} from 'react-native';
-
+import { getFavourites } from '../utils/apiDataUtil';
+import { addFilteredFavorites } from '../utils/apiDataUtil';
 
 function Favourite({title, mobileWidth , id , navigation}) {
 
     const style = handleStyles(mobileWidth);
 
+    const favourites = getFavourites();
+
     function handleRemove(){
-        console.log(id);
+        const filtered = fav.filter((fav) => fav.id !== id);
+        addFilteredFavorites(filtered);
     }
 
     return (

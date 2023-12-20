@@ -159,7 +159,7 @@ const getDataById = (id) => {
         date: dateTime
     }
 
-    fetch('http://10.10.1.103:3000/submitComment', {
+    fetch(`http://${hostPCipAdress}/submitComment`, {
       method: 'POST',
       headers : {
           'Accept' : 'application/json',
@@ -204,6 +204,13 @@ const getDataById = (id) => {
     }
 }
 
+const addFilteredFavorites = async (favorite) => {
+  try {
+      AsyncStorage.setItem('favourite', JSON.stringify(favorite));
+  } catch (error) {
+      console.error('AsyncStorage#setItem error: ' + error.message);
+  }
+}
 
 const getFavourites = () => {
   const [asyncData , setAsyncData] = useState([]);
@@ -241,5 +248,6 @@ export {
   getGeoLocation,
   getWeather,
   getAllGardens,
-  submitComment
+  submitComment,
+  addFilteredFavorites
 };
