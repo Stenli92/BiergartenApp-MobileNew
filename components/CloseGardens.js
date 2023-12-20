@@ -19,6 +19,8 @@ function CloseGardens({navigation , showClosest , setShowClosest , mobileWidth }
                         <TouchableOpacity key={data.id}  style={styles.garden}  onPress={() => navigation.navigate('BeergardenDetails' , {id : data.id})}>
                                 <ImageBackground style = {styles.backGround} source={require('../assets/close-bgarden-back.png')}>
                                
+                                <View style={styles.distanceAndNameContainer}>
+
                                     <Text style={styles.distanceAndName} >{data.title}</Text>
                                     <Text style={styles.distanceAndName}>
                                         <Image 
@@ -29,6 +31,7 @@ function CloseGardens({navigation , showClosest , setShowClosest , mobileWidth }
                                                 ? `  ${(data.distance / 1000).toFixed(0)} km`
                                                 : `  ${data.distance.toFixed()} m`}
                                     </Text>
+                                </View>
                              
                             </ImageBackground>
                         </TouchableOpacity>
@@ -72,7 +75,9 @@ function handleStyles(mobileWidth){
         height : 150,
         width: '100%',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 5,
+
     },
     icon : {
         display: 'flex',
@@ -100,7 +105,7 @@ function handleStyles(mobileWidth){
         color: '#FFF',
         fontWeight: 'bold',
         shadowColor: '#000',
-        height: 40,
+        height: 'fit-content',
         display: 'flex',
         overflow: 'hidden', 
         padding : 10,
@@ -110,8 +115,8 @@ function handleStyles(mobileWidth){
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        bottom: 0,
-        height: 45
+        position: 'absolute',
+        bottom: 0
     },
     backGround: {
         display:'flex',
