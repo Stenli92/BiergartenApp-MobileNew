@@ -1,8 +1,10 @@
 import React , {useState} from 'react';
 import { View , Text , TextInput , TouchableOpacity , StyleSheet} from 'react-native';
+import { submitComment } from '../utils/apiDataUtil';
+import { useEffect } from 'react';
 
 
-function CommentsForm({mobileWidth}) {
+function CommentsForm({mobileWidth , id}) {
 
     
   const [comment, setComment] = useState('');
@@ -10,6 +12,12 @@ function CommentsForm({mobileWidth}) {
 
 
   const styles = useStyles(mobileWidth);
+
+  function handleCommentSubmit(){
+    submitComment(id , comment , name);
+    setComment(''),
+    setName('');
+  }
 
 
     return (
@@ -25,7 +33,7 @@ function CommentsForm({mobileWidth}) {
               style={styles.name}
               placeholder="Insert your name here..."
               placeholderTextColor={'#8b8b8b'}
-              onChange={(e) => setName(e.currentTarget.value)}
+              onChangeText={setName}
             />
             <Text style={styles.label}>
               Leave your comment here
@@ -37,10 +45,10 @@ function CommentsForm({mobileWidth}) {
               style={styles.comment}
               placeholder="Insert your name here..."
               placeholderTextColor={'#8b8b8b'}
-              onChange={(e) => setComment(e.currentTarget.value)}
+              onChangeText={setComment}
             />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Comment</Text>
+            <TouchableOpacity style={styles.button} onPress={() => handleCommentSubmit()}>
+              <Text style={styles.buttonText} >Comment</Text>
             </TouchableOpacity>
           </View>
         </View>

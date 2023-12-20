@@ -30,8 +30,6 @@ function BeergardenDetails({route , navigation}) {
 
     const data = getDataById(id);
 
-    submitComment('10','comment text', 'Commenter Name');
-
     const image = require('../assets/garden-background.png')
 
     return (
@@ -44,7 +42,7 @@ function BeergardenDetails({route , navigation}) {
                 <Address styles={styles} address={data?.address}/>
                 <OpeningTimes styles={styles} openingtimes={data?.openingtimes}/>
                 <Weather mobileWidth={mobileWidth}/>
-                <CommentsForm ></CommentsForm>
+                <CommentsForm mobileWidth={mobileWidth} id={id}></CommentsForm>
                 <CommentList mobileWidth={mobileWidth} id={id}></CommentList>
             </ImageBackground>
         </ScrollView>
