@@ -23,7 +23,7 @@ function handleStyles(){
             backgroundColor: 'rgba(0, 0, 0, 0.568)',
             overflow: 'hidden',
             transition: 'top 0.2s ease-in-out',
-            padding: 5
+            padding: 10
         } ,
         title : {
             display: 'flex',

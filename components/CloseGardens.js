@@ -9,32 +9,30 @@ function CloseGardens({navigation , showClosest , setShowClosest , mobileWidth }
     const styles = handleStyles(mobileWidth);
 
     return (
-        <View className="close-gardens" style={showClosest ? styles.container : {display : 'none'}}>
+        <View style={showClosest ? styles.container : {display : 'none'}}>
                 <View style={styles.showMapButtonContainer}>
                     <Pressable  style={styles.showMapButton} onPress={() => setShowClosest(false)}><Text >Show Beergarden Map</Text></Pressable>
                 </View>
-                <ScrollView style={styles.gardensContainer}>
+                <ScrollView >
                     {allGardens
                     .map((data) => (
-                    <TouchableOpacity key={data.id} style={styles.garden} onPress={() => navigation.navigate('BeergardenDetails' , {id : data.id})}>
-                        <ImageBackground style={styles.backGround} source={require('../assets/close-bgarden-back.png')}>
-                            <View style={styles.gardenContainer}>
+                        <TouchableOpacity key={data.id}  style={styles.garden}  onPress={() => navigation.navigate('BeergardenDetails' , {id : data.id})}>
+                                <ImageBackground style = {styles.backGround} source={require('../assets/close-bgarden-back.png')}>
+                               
+                                    <Text style={styles.distanceAndName} >{data.title}</Text>
+                                    <Text style={styles.distanceAndName}>
+                                        <Image 
+                                            source={require("../assets/small-location.png")}
+                                            alt="image"
+                                        />  
+                                            {data.distance > 1000
+                                                ? `  ${(data.distance / 1000).toFixed(0)} km`
+                                                : `  ${data.distance.toFixed()} m`}
+                                    </Text>
+                             
+                            </ImageBackground>
+                        </TouchableOpacity>
 
-                            <Text style={styles.distanceAndName} >{data.title}</Text>
-                            <View styles={styles.distanceAndNameContainer}>
-                                <Text style={styles.distanceAndName}>
-                                    <Image 
-                                        source={require("../assets/small-location.png")}
-                                        alt="image"
-                                    />  
-                                        {data.distance > 1000
-                                            ? `  ${(data.distance / 1000).toFixed(0)} km`
-                                            : `  ${data.distance.toFixed()} m`}
-                                </Text>
-                            </View>
-                            </View>
-                        </ImageBackground>
-                    </TouchableOpacity>
                     ))}
                 </ScrollView>
             </View>
@@ -59,21 +57,22 @@ function handleStyles(mobileWidth){
     },
     gardensContainer: {
         display: 'flex',
-        flexDirection: "column",
         gap: mobileWidth ? 10 : 0,
-        height: '100%',
+        // height: '100%',
     },
     gardenContainer: {
         display: 'flex',
         flexDirection: "row",
-        height: '100%',
+        height: '20%',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         color: 'white',
     },
     garden: {
-        borderTopEndRadius: 30,
-        height:  "20%",
+        height : 150,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row'
     },
     icon : {
         display: 'flex',
@@ -105,16 +104,20 @@ function handleStyles(mobileWidth){
         display: 'flex',
         overflow: 'hidden', 
         padding : 10,
-        marginBottom: 5
     } ,
     distanceAndNameContainer : {
+        display : 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        bottom: 0,
         height: 45
     },
-    backGround : {
-        width : '100%' ,
+    backGround: {
+        display:'flex',
+        flexDirection: 'row',
         height: '100%',
-        display: 'flex',
-        flexDirection: "column",
+        width: '100%'
     }
 
   })};

@@ -41,7 +41,7 @@ console.log("favorites: ",favouritesArray);
                 <ScrollView style={styles.favourites}>
                     {favouritesArray != null && favouritesArray.length != 0
                     ? favouritesArray.map((favourite , index) => {
-                        return <Favourite mobileWidth={mobileWidth} title={favourite.title} key={index} />;
+                        return <Favourite mobileWidth={mobileWidth} title={favourite.title} key={index} id={favourite.id} navigation={navigation}/>;
                     })
                     : <View style={styles.emptyContainer}><Text style={styles.text}>No favourites added!</Text></View> }
                 </ScrollView>
