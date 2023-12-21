@@ -15,7 +15,7 @@ function BeergardenMap({navigation}) {
 
     return (
         <View style={styles.container} >
-            <SearchBar mobileWidth={mobileWidth}></SearchBar>
+            <SearchBar mobileWidth={mobileWidth} navigation={navigation}></SearchBar>
             <CloseGardens mobileWidth={mobileWidth}  showClosest={showClosest} navigation={navigation} setShowClosest={setShowClosest}></CloseGardens>
             <MapGoogle navigation={navigation}></MapGoogle>
             <ShowClosesGardens setShowClosest={setShowClosest}/>

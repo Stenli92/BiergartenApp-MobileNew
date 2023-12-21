@@ -10,7 +10,7 @@ function Favourite({title, mobileWidth , id , navigation}) {
     const favourites = getFavourites();
 
     function handleRemove(){
-        const filtered = fav.filter((fav) => fav.id !== id);
+        const filtered = favourites.filter((fav) => fav.id !== id);
         addFilteredFavorites(filtered);
     }
 
@@ -18,7 +18,7 @@ function Favourite({title, mobileWidth , id , navigation}) {
         <TouchableOpacity style={style.container} onPress={() => navigation.navigate('BeergardenDetails' ,  {id : id })}>
                 <Image style={style.image} source={require('../assets/close-bgarden-back.png')} alt="image" />
                 <Text style={style.title}>{title}</Text>
-                <TouchableOpacity style={style.closeButton} onPress={(e) => handleRemove()}>
+                <TouchableOpacity style={style.closeButton} onPress={() => handleRemove()}>
                     <Text style={{color : 'white' , height: 20}}> &#10006; </Text>
                 </TouchableOpacity>
         </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React ,{useState}from 'react';
-import { Pressable, Text , StyleSheet , ImageBackground  ,View , Image, ScrollView, TouchableOpacity} from 'react-native';
+import { Pressable, Text , StyleSheet , FlatList, ImageBackground  ,View , Image, ScrollView, TouchableOpacity} from 'react-native';
 import { calculateDistance } from '../utils/DistanceCalculator';
 
 function CloseGardens({navigation , showClosest , setShowClosest , mobileWidth }) {
@@ -13,31 +13,27 @@ function CloseGardens({navigation , showClosest , setShowClosest , mobileWidth }
                 <View style={styles.showMapButtonContainer}>
                     <Pressable  style={styles.showMapButton} onPress={() => setShowClosest(false)}><Text >Show Beergarden Map</Text></Pressable>
                 </View>
-                <ScrollView >
-                    {allGardens
-                    .map((data) => (
-                        <TouchableOpacity key={data.id}  style={styles.garden}  onPress={() => navigation.navigate('BeergardenDetails' , {id : data.id})}>
-                                <ImageBackground style = {styles.backGround} source={require('../assets/close-bgarden-back.png')}>
-                               
-                                <View style={styles.distanceAndNameContainer}>
+                <FlatList data={allGardens} renderItem ={
+                    ({item}) =>  <TouchableOpacity key={item.id}  style={styles.garden}  onPress={() => navigation.navigate('BeergardenDetails' , {id : item.id})}>
+                    <ImageBackground style = {styles.backGround} source={require('../assets/close-bgarden-back.png')}>
+                   
+                    <View style={styles.distanceAndNameContainer}>
 
-                                    <Text style={styles.distanceAndName} >{data.title}</Text>
-                                    <Text style={styles.distanceAndName}>
-                                        <Image 
-                                            source={require("../assets/small-location.png")}
-                                            alt="image"
-                                        />  
-                                            {data.distance > 1000
-                                                ? `  ${(data.distance / 1000).toFixed(0)} km`
-                                                : `  ${data.distance.toFixed()} m`}
-                                    </Text>
-                                </View>
-                             
-                            </ImageBackground>
-                        </TouchableOpacity>
-
-                    ))}
-                </ScrollView>
+                        <Text style={styles.distanceAndName} >{item.title}</Text>
+                        <Text style={styles.distanceAndName}>
+                            <Image 
+                                source={require("../assets/small-location.png")}
+                                alt="image"
+                            />  
+                                {item?.distance > 1000
+                                    ? `  ${(item.distance / 1000).toFixed(0)} km`
+                                    : `  ${item.distance.toFixed()} m`}
+                        </Text>
+                    </View>
+                 
+                </ImageBackground>
+            </TouchableOpacity>
+                }/>
             </View>
       );
 }
