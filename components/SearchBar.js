@@ -13,9 +13,9 @@ function SearchBar({mobileWidth , navigation}) {
     
     async function handleSearch(newText) {
         if (/.{4,}/.test(newText)) {
+            setText(newText);
             const result = await getDataBySearch(newText);
             setData(result);
-            setText(newText);
 
         } else {
             setText(newText);
@@ -26,7 +26,7 @@ function SearchBar({mobileWidth , navigation}) {
     function handleClear() {
         setData([]);
         setText('');
-      }
+    }
 
     return (
        

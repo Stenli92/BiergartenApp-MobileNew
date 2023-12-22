@@ -1,24 +1,11 @@
 import React , {useState} from 'react';
 import { View , Text , TextInput , TouchableOpacity , StyleSheet} from 'react-native';
-import { submitComment } from '../utils/apiDataUtil';
-import { useEffect } from 'react';
 
 
-function CommentsForm({mobileWidth , id}) {
+function CommentsForm({mobileWidth , handleCommentSubmit , comment , setComment , name , setName}) {
 
-    
-  const [comment, setComment] = useState('');
-  const [name, setName] = useState('');
-
-
+  
   const styles = useStyles(mobileWidth);
-
-  function handleCommentSubmit(){
-    submitComment(id , comment , name);
-    setComment(''),
-    setName('');
-  }
-
 
     return (
         <View style={styles.container}>

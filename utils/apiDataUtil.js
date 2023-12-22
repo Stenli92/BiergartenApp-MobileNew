@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // IMPORTANT !!!
 // Change this to your pc local ip adress for testing !!!
-const hostPCipAdress = `10.10.1.103:3000`;
+const hostPCipAdress = `192.168.1.4:3000`;
 // IMPORTANT !!!
 
 const getCoordsAndId = () => {
@@ -120,27 +120,33 @@ const getDataById = (id) => {
     }
   };
   
-  const getComments = (id) => {
-  
-    const [data , setData] = useState([]);
-    let comments;
-  
-    useEffect(() => {
-      fetchData();
-    },[])
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`http://${hostPCipAdress}/comments/${id}`);
+  const getComments = async (id) => {
+
+    const res = await fetch(`http://${hostPCipAdress}/comments/${id}`);
         if (res.ok) {
           comments = await res.json();
-          setData(comments);
+          return comments;
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
   
-      return data;
+    // const [data , setData] = useState([]);
+    // let comments;
+  
+    // useEffect(() => {
+    //   fetchData();
+    // },[])
+    // const fetchData = async () => {
+    //   try {
+    //     const res = await fetch(`http://${hostPCipAdress}/comments/${id}`);
+    //     if (res.ok) {
+    //       comments = await res.json();
+    //       setData(comments);
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // };
+  
+    //   return data;
   };
 
   const submitComment = (id,comment, comentName) => {
@@ -181,7 +187,7 @@ const getDataById = (id) => {
     }
   };
 
-  const addToFavorites = async (id, title) => {
+  const addToFavorites = async (id, title , toggleModal) => {
     let favorite;
     try {
       let asyncStrorageData = await AsyncStorage.getItem('favourite');
@@ -192,11 +198,11 @@ const getDataById = (id) => {
         AsyncStorage.setItem('favourite', JSON.stringify(favorite));
       }
       else {
-        console.log("favorite: ", favorite);
         const found = favorite.some((fav) => fav.id === id);
         if(!found) {
           favorite.push({ id: `${id}`, title: `${title}` });
-          AsyncStorage.setItem('favourite', JSON.stringify(favorite));  
+          AsyncStorage.setItem('favourite', JSON.stringify(favorite)); 
+          toggleModal() 
         }
      }
     } catch (error) {

@@ -4,15 +4,15 @@ import Comment from './Comment';
 import { getComments } from '../utils/apiDataUtil';
 
 
-function CommentList({mobileWidth , id}) {
+function CommentList({mobileWidth , commentList}) {
 
     const styles = useStyles(mobileWidth);
         
-    const comments = getComments(id);
+    // const comments = getComments(id);
 
     return (
         <View style={styles.container}>
-            {comments?.map((comment , index) => {
+            {commentList?.map((comment , index) => {
                 return (
                     <Comment key={index} comment={comment} mobileWidth={mobileWidth} />
                 );

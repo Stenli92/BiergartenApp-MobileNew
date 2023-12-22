@@ -6,8 +6,7 @@ function Footer({navigation , id , title , toggleModal}) {
     const styles = useStyles();
 
     function handleAddToFavourites(){
-      addToFavorites(id, title);
-      toggleModal();
+      addToFavorites(id, title , toggleModal);
     }
    
     return (

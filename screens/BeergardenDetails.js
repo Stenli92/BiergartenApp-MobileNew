@@ -7,26 +7,52 @@ import OpeningTimes from '../components/OpeningTimes';
 import Weather from '../components/Weather';
 import CommentsForm from '../components/CommentsForm';
 import CommentList from '../components/CommentList';
-import { getDataById } from '../utils/apiDataUtil';
+import { getComments, getDataById } from '../utils/apiDataUtil';
 import { addToFavorites } from '../utils/apiDataUtil';
 import { getFavourites } from '../utils/apiDataUtil';
 import { submitComment } from '../utils/apiDataUtil';
 import { useState } from 'react';
 import AddToFavModal from '../components/AddToFavModal';
+import { useEffect } from 'react';
 
 function BeergardenDetails({route , navigation}) {
 
     const {id} = route.params; 
 
+
+    
+    
+  const [comment, setComment] = useState('');
+  const [name, setName] = useState('');
+
+
+  
+  async function handleCommentSubmit(){
+    submitComment(id , comment , name);
+    setComment(''),
+    setName('');
+    const result = await getComments(id);
+    setCommentList(result);
+  }
+
     const {width , height} = useWindowDimensions();
     const mobileWidth = (width < 768);
     const [modal , setModal] = useState(false);
+
+    const [commentList , setCommentList] = useState([]);
 
     function toggleModal() {
         setModal(!modal);
     }
 
+    async function handleCommentList(id){
+        const result = await getComments(id);
+        setCommentList(result);
+    }
 
+    useEffect(() => {
+        handleCommentList(id)
+    },[])
 
     const data = getDataById(id);
 
@@ -38,12 +64,11 @@ function BeergardenDetails({route , navigation}) {
             <ImageBackground source={image} style={styles.image} resizeMode="cover">
                 <Header navigation ={navigation}/>
                 <GardenDetails title ={data?.title} description={data?.description} styles={styles} />
-                {/* {mobileWidth ? '' : <MapGarden />} */}
                 <Address styles={styles} address={data?.address}/>
                 <OpeningTimes styles={styles} openingtimes={data?.openingtimes}/>
                 <Weather mobileWidth={mobileWidth}/>
-                <CommentsForm mobileWidth={mobileWidth} id={id}></CommentsForm>
-                <CommentList mobileWidth={mobileWidth} id={id}></CommentList>
+                <CommentsForm mobileWidth={mobileWidth} handleCommentSubmit={handleCommentSubmit} comment={comment} setComment={setComment} name={name} setName={setName}></CommentsForm>
+                <CommentList mobileWidth={mobileWidth} commentList={commentList}></CommentList>
             </ImageBackground>
         </ScrollView>
                 <Footer title={data?.title} id={id} navigation={navigation} toggleModal= {toggleModal}/>
